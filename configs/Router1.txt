@@ -1,0 +1,94 @@
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 122.5.0.1 255.255.192.0
+ ip helper-address 122.5.187.26
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ ip helper-address 122.5.187.26
+ duplex auto
+ speed auto
+!
+interface Serial0/2/0
+ ip address 122.5.186.42 255.255.255.248
+ clock rate 2000000
+!
+interface Serial0/2/1
+ ip address 122.5.186.57 255.255.255.248
+ clock rate 2000000
+!
+interface Ethernet0/3/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 24
+ network 122.5.186.40 0.0.0.7
+ network 122.5.186.56 0.0.0.7
+ network 122.5.0.0 0.0.63.255
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

@@ -1,0 +1,101 @@
+!
+version 12.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 122.5.187.33 255.255.255.252
+ ip helper-address 122.5.187.26
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 122.0.0.1 255.254.0.0
+ ip helper-address 122.5.187.26
+ ip access-group 1 out
+ duplex auto
+ speed auto
+!
+interface Serial0/2/0
+ ip address 122.5.186.138 255.255.255.248
+!
+interface Serial0/2/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/3/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/3/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ network 122.5.186.136 0.0.0.7 area 1
+ network 122.0.0.0 0.1.255.255 area 1
+ network 122.5.187.32 0.0.0.3 area 1
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 1 deny 122.5.187.28 0.0.0.3
+access-list 1 permit any
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
